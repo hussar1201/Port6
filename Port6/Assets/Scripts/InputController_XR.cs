@@ -67,6 +67,16 @@ public class InputController_XR : MonoBehaviour
         get;
         private set;
     }
+    public bool Btn_X
+    {
+        get;
+        private set;
+    }
+    public bool Btn_Y
+    {
+        get;
+        private set;
+    }
 
 
     private static InputController_XR m_instance;
@@ -114,6 +124,20 @@ public class InputController_XR : MonoBehaviour
         {
             this.grip_L = grip_L;
         }
+
+        if (Controller_L.TryGetFeatureValue(CommonUsages.primaryButton, out bool Btn_X))
+        {
+            this.Btn_X = Btn_X;
+        }
+
+        if (Controller_L.TryGetFeatureValue(CommonUsages.secondaryButton, out bool Btn_Y))
+        {
+            this.Btn_Y = Btn_Y;
+
+        }
+
+
+
 
         //우측 컨트롤러 입력
         if (Controller_R.TryGetFeatureValue(CommonUsages.trigger, out float trigger_R) && trigger_R > 0.1f)
