@@ -27,13 +27,19 @@ public class Saber : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (UIManager.instance.is_menu_called) return;
+        
         RaycastHit hit;       
         if (Physics.Raycast(transform.position, transform.up, out hit, 300f, layer))
         {
-            if (Vector3.Angle(transform.position - oldPos, hit.transform.up) > 130)
+            if (Vector3.Angle(transform.position - oldPos, hit.transform.up) > 90)
             {
                 Cube tmp = hit.transform.gameObject.GetComponent<Cube>();
-                if(tmp.is_cube_blue == is_saber_blue) Destroy(tmp.gameObject);
+                if (tmp.is_cube_blue == is_saber_blue)
+                {
+                    Destroy(tmp.gameObject);
+                    UIManager.instance.AddScore(10);
+                }
             }
         }
         oldPos = transform.position;

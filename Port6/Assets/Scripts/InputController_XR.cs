@@ -77,6 +77,11 @@ public class InputController_XR : MonoBehaviour
         get;
         private set;
     }
+    public bool Btn_Menu
+    {
+        get;
+        private set;
+    }
 
 
     private static InputController_XR m_instance;
@@ -133,6 +138,12 @@ public class InputController_XR : MonoBehaviour
         if (Controller_L.TryGetFeatureValue(CommonUsages.secondaryButton, out bool Btn_Y))
         {
             this.Btn_Y = Btn_Y;
+
+        }
+
+        if (Controller_L.TryGetFeatureValue(CommonUsages.menuButton, out bool Btn_Menu))
+        {
+            this.Btn_Menu = Btn_Menu;
 
         }
 

@@ -18,10 +18,24 @@ public class SaberController : MonoBehaviour
         timer += Time.deltaTime;
 
         if (interval_input <= timer)
-
         {
             timer = 0f;
-            if(InputController_XR.instance.Btn_X)
+
+            if (InputController_XR.instance.Btn_Menu)
+            {
+                if (!UIManager.instance.is_menu_called)
+                {
+                    UIManager.instance.OpenMenu();
+                }
+                else
+                {
+                    UIManager.instance.CloseMenu();
+                }
+            }
+
+            if (UIManager.instance.is_menu_called) return;
+            
+            if (InputController_XR.instance.Btn_X)
             {
                 saber_L.ChangeColor();
             }
@@ -29,6 +43,10 @@ public class SaberController : MonoBehaviour
             {
                 saber_R.ChangeColor();
             }
+
+
+
+            
         }
 
 

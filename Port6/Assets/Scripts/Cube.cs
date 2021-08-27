@@ -69,6 +69,19 @@ public class Cube : MonoBehaviour
 
     }
 
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("ComboBreaker"))
+        {
+            UIManager.instance.ResetCombo();
+
+        }
+    }
+
+
+
+
 }
 
 
