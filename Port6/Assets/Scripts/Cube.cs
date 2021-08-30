@@ -27,6 +27,8 @@ public class Cube : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (UIManager.instance.is_menu_called) return;
+
         transform.position += speed * transform.forward * Time.deltaTime;
         timer += Time.deltaTime;
 

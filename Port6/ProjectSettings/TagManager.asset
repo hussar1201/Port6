@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Cube
   - ComboBreaker
+  - Saber
   layers:
   - Default
   - TransparentFX

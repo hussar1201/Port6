@@ -29,10 +29,12 @@ public class Saber : MonoBehaviour
     {
         if (UIManager.instance.is_menu_called) return;
         
+
+        /*
         RaycastHit hit;       
-        if (Physics.Raycast(transform.position, transform.up, out hit, 300f, layer))
+        if (Physics.Raycast(transform.position, transform.up, out hit, 250f, layer))
         {
-            if (Vector3.Angle(transform.position - oldPos, hit.transform.up) > 90)
+            if (Vector3.Angle(transform.position - oldPos, hit.transform.up) > 120)
             {
                 Cube tmp = hit.transform.gameObject.GetComponent<Cube>();
                 if (tmp.is_cube_blue == is_saber_blue)
@@ -43,6 +45,9 @@ public class Saber : MonoBehaviour
             }
         }
         oldPos = transform.position;
+        */
+
+
     }
 
     public void ChangeColor()
@@ -71,6 +76,20 @@ public class Saber : MonoBehaviour
             arr_particles[i].gameObject.SetActive(false);
         }
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Cube"))
+        {
+            Cube tmp = collision.gameObject.GetComponent<Cube>();
+            Debug.Log(tmp);
+            if (tmp.is_cube_blue == is_saber_blue)
+            {
+                Destroy(tmp.gameObject);
+                UIManager.instance.AddScore(10);
+            }
+        }
     }
 
 

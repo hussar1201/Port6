@@ -10,6 +10,14 @@ public class UIManager : MonoBehaviour
         get;
         private set;
     }
+
+    public bool flag_start_game
+    {
+        get;
+        private set;
+    }
+
+
     public Text text_Score;
     public Text text_Combo;
     public GameObject menu;
@@ -46,6 +54,8 @@ public class UIManager : MonoBehaviour
             return;
         }
         menu.SetActive(false);
+        flag_start_game = false;
+
     }
 
     public void AddScore(int score)
@@ -80,6 +90,16 @@ public class UIManager : MonoBehaviour
     public void ResetCombo()
     {
         text_Combo.text = "" + (combo=0);
+    }
+
+
+    public void StartGame()
+    {
+        flag_start_game = true;
+        //음악 재생 시작
+        // 춤 추는 애들 보이게 하고 애니메이터 시작. 한 5초 정도는 idle로 보이게 해야 하니, 코루틴으로 돌리기.
+        // spawner도 시작하게 하기.
+
     }
 
 
