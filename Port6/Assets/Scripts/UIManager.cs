@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,9 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+
+    public event Action onStart;
+
     public bool is_menu_called
     {
         get;
@@ -21,6 +25,10 @@ public class UIManager : MonoBehaviour
     public Text text_Score;
     public Text text_Combo;
     public GameObject menu;
+    public GameObject canvas_onGame;
+    public GameObject dancing_girls;
+    private AudioSource audiosource;
+
 
     public int score
     {
@@ -53,8 +61,14 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        menu.SetActive(false);
+
+        audiosource = GetComponent<AudioSource>();
+
+        dancing_girls.SetActive(false);
+        canvas_onGame.SetActive(false);
+
         flag_start_game = false;
+        onStart += () => audiosource.Play();           
 
     }
 
@@ -96,10 +110,13 @@ public class UIManager : MonoBehaviour
     public void StartGame()
     {
         flag_start_game = true;
-        //음악 재생 시작
+        dancing_girls.SetActive(true);
+        canvas_onGame.SetActive(true);
+        menu.SetActive(is_menu_called = false);      
+        onStart();        
+
         // 춤 추는 애들 보이게 하고 애니메이터 시작. 한 5초 정도는 idle로 보이게 해야 하니, 코루틴으로 돌리기.
         // spawner도 시작하게 하기.
-
     }
 
 
