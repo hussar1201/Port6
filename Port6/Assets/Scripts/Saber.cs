@@ -16,7 +16,6 @@ public class Saber : MonoBehaviour
     {
         vlb = GetComponent<VolumetricLineBehavior>();
         arr_particles = GetComponentsInChildren<ParticleSystem>();
-        Debug.Log(arr_particles.Length);
         for (int i = 0; i < arr_particles.Length; i++)
         {
             arr_particles[i].gameObject.SetActive(false);
@@ -28,24 +27,23 @@ public class Saber : MonoBehaviour
     void Update()
     {
         if (UIManager.instance.is_menu_called) return;
-        
 
-        /*
-        RaycastHit hit;       
-        if (Physics.Raycast(transform.position, transform.up, out hit, 250f, layer))
+
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.up, out hit, 18f, layer))
         {
-            if (Vector3.Angle(transform.position - oldPos, hit.transform.up) > 120)
+            if (Vector3.Angle(transform.position - oldPos, hit.transform.up) > 130)
             {
                 Cube tmp = hit.transform.gameObject.GetComponent<Cube>();
-                if (tmp.is_cube_blue == is_saber_blue)
+                if (tmp!=null && tmp.is_cube_blue == is_saber_blue)
                 {
-                    Destroy(tmp.gameObject);
+                    tmp.BlowUp();                    
                     UIManager.instance.AddScore(10);
                 }
             }
         }
         oldPos = transform.position;
-        */
 
 
     }
@@ -56,7 +54,7 @@ public class Saber : MonoBehaviour
 
         StartCoroutine(ShowEffects());
 
-        if(vlb.LineColor == Color.blue)
+        if (vlb.LineColor == Color.blue)
             vlb.LineColor = Color.red;
         else
             vlb.LineColor = Color.blue;
@@ -64,11 +62,11 @@ public class Saber : MonoBehaviour
 
     IEnumerator ShowEffects()
     {
-        for(int i = 0;i<arr_particles.Length;i++)
+        for (int i = 0; i < arr_particles.Length; i++)
         {
             arr_particles[i].gameObject.SetActive(true);
         }
-        
+
         yield return new WaitForSeconds(0.2f);
 
         for (int i = 0; i < arr_particles.Length; i++)
@@ -78,19 +76,21 @@ public class Saber : MonoBehaviour
 
     }
 
+    /*
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Cube"))
+        if (collision.gameObject.CompareTag("Cube"))
         {
             Cube tmp = collision.gameObject.GetComponent<Cube>();
             Debug.Log(tmp);
-            if (tmp.is_cube_blue == is_saber_blue)
+            if (tmp!=null && tmp.is_cube_blue == is_saber_blue)
             {
-                Destroy(tmp.gameObject);
+                tmp.BlowUp();
                 UIManager.instance.AddScore(10);
             }
         }
     }
+    */
 
 
 

@@ -68,14 +68,14 @@ public class UIManager : MonoBehaviour
         canvas_onGame.SetActive(false);
 
         flag_start_game = false;
-        onStart += () => audiosource.Play();           
+        onStart += () => audiosource.Play();
 
     }
 
     public void AddScore(int score)
     {
         this.score += score;
-        text_Score.text = "" + score;
+        text_Score.text = "" + this.score;
         AddCombo();
     }
 
@@ -88,22 +88,46 @@ public class UIManager : MonoBehaviour
     {
         menu.SetActive(true);
         is_menu_called = true;
+        audiosource.Pause();
+        ControlDancingPart();
     }
 
     public void CloseMenu()
     {
         menu.SetActive(false);
         is_menu_called = false;
+        ControlDancingPart();
+        audiosource.Play();
     }
+
+    private void ControlDancingPart()
+    {
+        Animator[] animators = dancing_girls.GetComponentsInChildren<Animator>();
+        float speed_animation = 0f;
+
+        if (is_menu_called) speed_animation = 0f;
+        else speed_animation = 1f;
+
+        Debug.Log(animators.Length);
+
+        for (int i = 0; i < animators.Length; i++)
+        {
+            animators[i].speed = speed_animation;
+        }
+
+    }
+
+
+
 
     public void QuitApp()
     {
         Application.Quit();
     }
-    
+
     public void ResetCombo()
     {
-        text_Combo.text = "" + (combo=0);
+        text_Combo.text = "" + (combo = 0);
     }
 
 
@@ -112,11 +136,8 @@ public class UIManager : MonoBehaviour
         flag_start_game = true;
         dancing_girls.SetActive(true);
         canvas_onGame.SetActive(true);
-        menu.SetActive(is_menu_called = false);      
+        menu.SetActive(is_menu_called = false);
         onStart();        
-
-        // 춤 추는 애들 보이게 하고 애니메이터 시작. 한 5초 정도는 idle로 보이게 해야 하니, 코루틴으로 돌리기.
-        // spawner도 시작하게 하기.
     }
 
 

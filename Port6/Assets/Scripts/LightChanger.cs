@@ -10,13 +10,19 @@ public class LightChanger : MonoBehaviour
     public float time_change_min=2f;
     public float time_change_max=4f;
 
+
+
     private Color[] arr_Color =
     {Color.white,Color.black,Color.blue,Color.red,Color.blue,Color.magenta,Color.gray,Color.green,Color.grey,Color.yellow};
+
+
 
     private void Start()
     {
         StartCoroutine(ChangeColor());
     }
+
+
 
     IEnumerator ChangeColor()
     {
